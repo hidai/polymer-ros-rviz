@@ -198,6 +198,18 @@ Example:
         },
 
         /**
+         * Additional options for ROS3D.Viewer.
+         * For example, you can set cameraPose and cameraZoomSpeed.
+         * See http://robotwebtools.org/jsdoc/ros3djs/current/ROS3D.Viewer.html for details.
+         */
+        viewerOptions: {
+          type: Object,
+          value: function() {
+            return {};
+          }
+        },
+
+        /**
          * A ROS connection object taken from the `ros` property of the `<ros-websocket>` element.
          */
         ros: {
@@ -268,13 +280,13 @@ Example:
           document.getElementById = function(id) {
             return that.shadowRoot.getElementById(id);
           }
-          this._viewer = new ROS3D.Viewer({
+          this._viewer = new ROS3D.Viewer(Object.assign({
             background: background,
             divID: 'viewer',
             width: width,
             height: height,
             antialias: true
-          });
+          }, this.viewerOptions));
           document.getElementById = backupFunc;
           this._attached = true;
         });
